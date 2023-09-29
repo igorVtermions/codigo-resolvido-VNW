@@ -1,5 +1,6 @@
 programa {
-      inclua biblioteca Matematica -->mat
+  inclua biblioteca Matematica --> mat
+  
   funcao inicio() {
 
     inteiro projeto 
@@ -21,9 +22,8 @@ programa {
 
   funcao Calculadora (){
 
-    cadeia condicao
     inteiro n1, n2
-    cadeia operador
+    caracter operador, condicao
 
     escreva("Seja Bem-vindo a Calculadora\n\n")
     escreva("Digite um numero:  ")
@@ -32,27 +32,24 @@ programa {
     escreva("\nDigite outro numero: ")
     leia(n2)
     
-    escreva("\n Qual operação você deseja: ")
+    escreva("Operação desejada: +, -, /, *: ")
     leia(operador)
     
     escolha(operador){
       caso '+':
         escreva("\nResultado: ", n1 + n2)
       pare
-
       caso '-':
         escreva("\nResultado: ", n1 - n2)
-
+      pare
       caso '/':
         escreva("\nResultado: ", n1 / n2)
       pare
-
-      caso 'x':  
+      caso '*':  
         escreva("\nResultado: ", n1 * n2)
-
+      pare
       caso contrario : //adicionei caso contrario caso o usuario digite uma opção invalida
-         escreva("escolha errado ")
-
+        escreva("escolha errado")
     }
 
     escreva("\nDeseja voltar ao menu inicial Y/N ? \n")
@@ -64,7 +61,6 @@ programa {
       escreva("\nVamos Recomeçar\n")
       Calculadora()
     }
-  
   }
 
   funcao AcidentesTransito() {
@@ -72,35 +68,35 @@ programa {
     inteiro cidade_maior_indice = 0, cidade_menor_indice = 0, tot_car = 0, cidade_menos_car = 0, soma_acidente = 0, cod, qtd_carro, numero_vitimas
 
     para (inteiro i = 1; i <= 3; i++) {
-        escreva("Informe DDD de sua cidade " + i + ": ")
-        leia(cod)
+      escreva("Informe DDD de sua cidade " + i + ": ")
+      leia(cod)
 
-        escreva("Informe quantidade de carros de sua cidade " + i + ": ")
-        leia(qtd_carro)
+      escreva("Informe quantidade de carros da cidade " + i + ": ")
+      leia(qtd_carro)
 
-        escreva("Informe acidentes com vítimas em " + i + ": ")
-        leia(numero_vitimas)
+      escreva("Informe o número de acidentes com vítimas fatais na cidade " + i + ": ")
+      leia(numero_vitimas)
 
-        indice = mat.arredondar(numero_vitimas / qtd_carro, 3)
-        escreva("Índice de acidentes em " + i + ": ", indice, "\n")
+      indice = mat.arredondar(numero_vitimas / qtd_carro, 3)
+      escreva("Índice de acidentes em " + i + ": ", indice, "\n")
 
-        se (i == 1) {
+      se (i == 1) {
+        maior_indice = indice
+        menor_indice = indice
+      } senao {
+          se (indice > maior_indice) {
             maior_indice = indice
-            menor_indice = indice
-        } senao {
-            se (indice > maior_indice) {
-                maior_indice = indice
-                cidade_maior_indice = cod
-            } senao se (indice < menor_indice) { //erro de logica no codigo antigo 
-                menor_indice = indice
-                cidade_menor_indice = cod
+            cidade_maior_indice = cod
+          } senao se (indice < menor_indice) { //erro de logica no codigo antigo 
+              menor_indice = indice
+              cidade_menor_indice = cod
             }
         }
 
         se (qtd_carro < 2000) {
-            cidade_menos_car = cidade_menos_car + 1
-            soma_acidente = numero_vitimas + soma_acidente
-            media_acidente = mat.arredondar(soma_acidente / cidade_menos_car, 3) // adicionei um arredondador de media
+          cidade_menos_car = cidade_menos_car + 1
+          soma_acidente = numero_vitimas + soma_acidente
+          media_acidente = mat.arredondar(soma_acidente / cidade_menos_car, 3) // adicionei um arredondador de media
         }
 
         tot_car = qtd_carro + tot_car
@@ -152,5 +148,4 @@ programa {
       }
     }
 }
-
 }
