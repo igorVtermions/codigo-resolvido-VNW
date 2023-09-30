@@ -63,51 +63,50 @@ programa {
     }
   }
 
-  funcao AcidentesTransito() {
-    real maior_indice = 0, menor_indice = 0, media_car = 0, media_acidente = 0, indice = 0
-    inteiro cidade_maior_indice = 0, cidade_menor_indice = 0, tot_car = 0, cidade_menos_car = 0, soma_acidente = 0, cod, qtd_carro, numero_vitimas
+   funcao AcidentesTransito(){
+    
+    real maior_indice_acidentes = 0, menor_indice_acidentes = 100, 
+    media_car, media_acidente = 0, indices[3], soma_acidente = 0
+    inteiro cidade_maior_indice, cidade_menor_indice, tot_car = 0, cidade_menos_car = 0,
+     qtd_carro[3], numero_acidentes[3]
+    inteiro codigos[3]
 
-    para (inteiro i = 1; i <= 3; i++) {
-      escreva("Informe DDD de sua cidade " + i + ": ")
-      leia(cod)
+     para(inteiro i = 0; i < 3; i++){
 
-      escreva("Informe quantidade de carros da cidade " + i + ": ")
-      leia(qtd_carro)
+      escreva("Informe DDD da cidade " + (i+1) + ": ")
+      leia(codigos[i])
 
-      escreva("Informe o número de acidentes com vítimas fatais na cidade " + i + ": ")
-      leia(numero_vitimas)
+      escreva("Informe a quantidade de carros da cidade " + (i+1) + ": ")
+      leia(qtd_carro[i])
 
-      indice = mat.arredondar(numero_vitimas / qtd_carro, 3)
-      escreva("Índice de acidentes em " + i + ": ", indice, "\n")
+      escreva("Informe a quantidade de acidentes da cidade " + (i+1) + ": ")
+      leia(numero_acidentes[i])
 
-      se (i == 1) {
-        maior_indice = indice
-        menor_indice = indice
-      } senao {
-          se (indice > maior_indice) {
-            maior_indice = indice
-            cidade_maior_indice = cod
-          } senao se (indice < menor_indice) { //erro de logica no codigo antigo 
-              menor_indice = indice
-              cidade_menor_indice = cod
-            }
-        }
+      indices[i] = mat.arredondar((numero_acidentes[i] / qtd_carro[i]), 2) 
+      
+      se(indices[i] > maior_indice_acidentes){
+          maior_indice_acidentes = indices[i]
+          cidade_maior_indice = i+1
+      } senao se(indices[i] < menor_indice_acidentes) {
+          menor_indice_acidentes = indices[i]
+          cidade_menor_indice = i+1
+      }
+      se (qtd_carro[i] < 2000){
+        cidade_menos_car += 1
+        soma_acidente += numero_acidentes[i]
+      }
+      tot_car += qtd_carro[i]
+     }
 
-        se (qtd_carro < 2000) {
-          cidade_menos_car = cidade_menos_car + 1
-          soma_acidente = numero_vitimas + soma_acidente
-          media_acidente = mat.arredondar(soma_acidente / cidade_menos_car, 3) // adicionei um arredondador de media
-        }
+      media_acidente = mat.arredondar((soma_acidente / cidade_menos_car), 2) //media de acidentes nas cidades com menos de 2000 carros
 
-        tot_car = qtd_carro + tot_car
-        media_car = mat.arredondar(tot_car / i, 3) // adicionei um arredondador de media
-    }
-
-    escreva("\nO maior índice é: ", maior_indice, " pertence à cidade ", cidade_maior_indice)
-    escreva("\nO menor índice é: ", menor_indice, " pertence à cidade ", cidade_menor_indice)
-    escreva("\nCom base em todas as cidades, a média de veículos é: ", media_car)
-    escreva("\nEm cidades com total de carros menor que 2.000, a média de acidentes foi de: ", media_acidente)
-}
+      media_car = tot_car / 3
+     
+      escreva("\n\nO maior i­ndice é: ", maior_indice_acidentes * 100, "%. Pertence a cidade ", cidade_maior_indice)
+      escreva("\nO menor indice é: " , menor_indice_acidentes * 100, "%. Pertencente a cidade " + cidade_menor_indice)
+      escreva("\nCom base em todas as cidades a media de veiculos é ", mat.arredondar(media_car, 2))
+      escreva("\nEm cidades com total de carros menor que 2.000 a media de acidentes foi de: " + media_acidente)
+  }
 
   funcao CalculaMedia(){
     real result
